@@ -8,4 +8,15 @@ class UsersController < ApplicationController
     user = User.find_by(id: params[:id])
     render json: user
   end
+
+  def create
+    byebug
+    user = User.create(user_params)
+  end
+
+  private 
+
+  def user_params
+    params.require(:user).permit(:name, :is_coach)
+  end
 end
