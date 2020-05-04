@@ -12,8 +12,9 @@ class QuestionsController < ApplicationController
     end
 
     def create
+        byebug
         question = Question.create(question_params)
-        if question.is_valid? then
+        if question.valid then
             render json: question
         else
             # error
@@ -32,7 +33,7 @@ class QuestionsController < ApplicationController
     private
 
     def question_params
-        params.require(:question).permit(:text, :update_note, :user_id)
+        params.require(:question).permit(:title, :text, :update_note, :user_id)
     end
 
     def get_question
