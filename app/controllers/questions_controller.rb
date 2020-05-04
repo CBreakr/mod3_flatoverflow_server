@@ -12,9 +12,8 @@ class QuestionsController < ApplicationController
     end
 
     def create
-        byebug
         question = Question.create(question_params)
-        if question.valid then
+        if question.valid? then
             render json: question
         else
             # error
