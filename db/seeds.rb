@@ -48,7 +48,8 @@ q12 = Question.create!(title: "Twelvth Question", text:"Lorem Ipsum", user:u1)
 q13 = Question.create!(title: "Thirteenth Question", text:"Lorem Ipsum", user:u2)
 q14 = Question.create!(title: "Fourteenth Question", text:"Lorem Ipsum", user:u3)
 
-# q1.created_at = 
+q1.created_at = DateTime.new(2001,2,3,4,5,6,Rational(3,24))
+q1.save!
 
 QuestionUpvote.create!(question:q3, user:u1)
 QuestionUpvote.create!(question:q3, user:u3)
