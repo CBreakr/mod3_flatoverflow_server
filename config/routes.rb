@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :users
 
   get "/questions/filter/:filter_type", to: "questions#filter", as: "filter"
+  get "/questions/myfilter/:id", to: "questions#myfilter", as: "myfilter"
 end
