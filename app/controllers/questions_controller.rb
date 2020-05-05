@@ -3,12 +3,30 @@ class QuestionsController < ApplicationController
 
     def index
         questions = Question.all
-        render json: questions
+        render json: questions, include: [:user, :question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
+    end
+
+    def filter
+        puts "FILTER"
+        puts params
+        case params[:filter_type]
+        when "Today"
+            get_today_questions
+        when "New"
+            get_new_questions
+        when "Unanswered"
+            get_unanswered_questions
+        when "Popular"
+            get_popular_questions
+        when "Mine"
+            # I need more input
+            get_my_questions
+        end
     end
 
     def show
         # this should be tailored to include the comments/upvotes/tags/etc
-        render json: @question, include: [:question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
+        render json: @question, include: [:user, :question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
     end
 
     def create
@@ -37,5 +55,25 @@ class QuestionsController < ApplicationController
 
     def get_question
         @question = Question.find(params[:id])
+    end
+
+    def get_today_questions
+
+    end
+
+    def get_new_questions
+
+    end
+
+    def get_popular_questions
+
+    end
+
+    def get_unanswered_questions
+
+    end
+
+    def get_my_questions
+
     end
 end
