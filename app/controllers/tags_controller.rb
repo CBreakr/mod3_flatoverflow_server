@@ -6,6 +6,7 @@ class TagsController < ApplicationController
 
     def create
         tag = Tag.create(tag_params)
+        render json: tag
     end
 
     private 
