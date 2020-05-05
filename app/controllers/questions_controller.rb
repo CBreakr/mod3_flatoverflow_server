@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
 
     def show
         # this should be tailored to include the comments/upvotes/tags/etc
-        render json: @question, include: [:user, :question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
+        render json: @question, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => :comment_upvotes}]
     end
 
     def create
