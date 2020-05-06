@@ -2,8 +2,9 @@ class QuestionsController < ApplicationController
     before_action :get_question, only: [:show, :update]
 
     def index
-        questions = Question.where(is_answered: nil)
-        render json: questions, include: [:user, :question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
+        questions = Question.where(is_answered: nil).order(created_at: :desc)
+        # render json: questions, include: [:user, :question_upvotes, :tags, :comments => {:include => :comment_upvotes}]
+        renderJSON(questions)
     end
 
     def filter
@@ -29,7 +30,8 @@ class QuestionsController < ApplicationController
 
     def show
         # this should be tailored to include the comments/upvotes/tags/etc
-        render json: @question, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => :comment_upvotes}]
+        # render json: @question, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => :comment_upvotes}]
+        renderJSON(@question)
     end
 
     def create
@@ -46,7 +48,8 @@ class QuestionsController < ApplicationController
         end
 
         if question.save then
-            render json: question
+            # render json: question
+            renderJSON(question)
         else
             # error
         end
@@ -55,7 +58,8 @@ class QuestionsController < ApplicationController
     def update
         @question.update_note = params[:update_note]
         if @question.save then
-            render json: @question
+            # render json: @question
+            renderJSON(@question)
         else
             # error
         end
@@ -67,23 +71,30 @@ class QuestionsController < ApplicationController
         params.require(:question).permit(:title, :text, :user_id)
     end
 
+    def renderJSON(value)
+        render json: value, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => :comment_upvotes}]
+    end
+
     def get_question
         @question = Question.find(params[:id])
     end
 
     def get_today_questions
         # order by datetime, only for today
-        render json: Question.where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).order(created_at: :desc)
+        # render json: Question.where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).order(created_at: :desc)
+        renderJSON Question.where('created_at BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).order(created_at: :desc)
     end
 
     def get_new_questions
         # order questions by date, without an answers
-        render json: Question.where(is_answered: nil).order(created_at: :desc)
+        # render json: Question.where(is_answered: nil).order(created_at: :desc)
+        renderJSON Question.where(is_answered: nil).order(created_at: :desc)
     end
 
     def get_popular_questions
         # order questions by number of upvotes, without an answer
-        render json: Question.where(is_answered: nil).sort_by {|q| q.question_upvotes.count }.reverse
+        # render json: Question.where(is_answered: nil).sort_by {|q| q.question_upvotes.count }.reverse
+        renderJSON Question.where(is_answered: nil).sort_by {|q| q.question_upvotes.count }.reverse
     end
 
     def get_unanswered_questions
@@ -91,11 +102,13 @@ class QuestionsController < ApplicationController
         questions = Question.all.filter do |q|
             q.comments.count == 0
         end
-        render json: questions
+        # render json: questions
+        renderJSON questions
     end
 
     def get_my_questions(id)
         # only get questions for this user
-        render json: Question.where(user_id: id)
+        # render json: Question.where(user_id: id).order(created_at: :desc)
+        renderJSON Question.where(user_id: id).order(created_at: :desc)
     end
 end
