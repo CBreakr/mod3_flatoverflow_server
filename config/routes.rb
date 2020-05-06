@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   get "/questions/filter/:filter_type", to: "questions#filter", as: "filter"
   get "/questions/myfilter/:id", to: "questions#myfilter", as: "myfilter"
+
+  patch "/comments/mark_answer/:id", to: "comments#mark_answer", as: "answer"
 end

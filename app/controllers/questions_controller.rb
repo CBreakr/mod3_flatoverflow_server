@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
     end
 
     def renderJSON(value)
-        render json: value, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => :comment_upvotes}]
+        render json: value, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => [:comment_upvotes, :user]}]
     end
 
     def get_question
