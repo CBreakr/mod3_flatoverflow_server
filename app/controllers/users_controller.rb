@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    byebug
+    # byebug
     user = User.create(user_params)
   end
 

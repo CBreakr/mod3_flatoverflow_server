@@ -11,6 +11,7 @@ Question.destroy_all
 Comment.destroy_all
 QuestionUpvote.destroy_all
 CommentUpvote.destroy_all
+Tag.destroy_all
 
 u1 = User.create(name: 'codenameuriel', is_coach: false)
 u2 = User.create(name: 'CBreakr', is_coach: false)

@@ -33,8 +33,19 @@ class QuestionsController < ApplicationController
     end
 
     def create
-        question = Question.create(question_params)
-        if question.valid? then
+        question = Question.new(question_params)
+        params["tags"].each do |tag|
+            newTag = nil
+            if tag["id"] != "null" then
+                newTag = Tag.find(tag["id"])
+            else
+                newTag = Tag.create(text: tag["text"])
+            end
+
+            question.tags << newTag
+        end
+
+        if question.save then
             render json: question
         else
             # error
@@ -42,7 +53,7 @@ class QuestionsController < ApplicationController
     end
 
     def update
-        @question.update_note = question_params[:update_note]
+        @question.update_note = params[:update_note]
         if @question.save then
             render json: @question
         else
@@ -53,7 +64,7 @@ class QuestionsController < ApplicationController
     private
 
     def question_params
-        params.require(:question).permit(:title, :text, :update_note, :user_id)
+        params.require(:question).permit(:title, :text, :user_id)
     end
 
     def get_question
