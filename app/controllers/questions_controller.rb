@@ -36,15 +36,17 @@ class QuestionsController < ApplicationController
 
     def create
         question = Question.new(question_params)
-        params["tags"].each do |tag|
-            newTag = nil
-            if tag["id"] != "null" then
-                newTag = Tag.find(tag["id"])
-            else
-                newTag = Tag.create(text: tag["text"])
-            end
+        if params["tags"] then
+            params["tags"].each do |tag|
+                newTag = nil
+                if tag["id"] != "null" then
+                    newTag = Tag.find(tag["id"])
+                else
+                    newTag = Tag.create(text: tag["text"])
+                end
 
-            question.tags << newTag
+                question.tags << newTag
+            end
         end
 
         if question.save then
