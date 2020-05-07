@@ -29,8 +29,8 @@ qu2 = QuestionUpvote.create!(question:q1, user:u4)
 cu1 = CommentUpvote.create!(comment: c1, user: u1)
 cu2 = CommentUpvote.create!(comment: c1, user: u5)
 
-tag1 = Tag.create!(text: "javascript")
-tag2 = Tag.create!(text: "rails")
+tag1 = Tag.create!(text: "#javascript")
+tag2 = Tag.create!(text: "#rails")
 
 q1.tags << tag1
 q1.tags << tag2
