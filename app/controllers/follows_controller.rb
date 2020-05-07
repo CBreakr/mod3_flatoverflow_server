@@ -1,13 +1,13 @@
 class FollowsController < ApplicationController
   def index
     follows = Follow.all 
-    render json: follows 
+    render json: follows, include: [:follower, :followee]
   end
 
   def create
     # byebug
     follow = Follow.find_or_create_by(follower_id: follow_params[:follower_id], followee_id: follow_params[:followee_id])
-    render json: follow
+    render json: follow, include: [:follower, :followee]
   end
 
   private
