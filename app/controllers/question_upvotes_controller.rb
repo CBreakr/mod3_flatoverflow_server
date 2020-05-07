@@ -1,7 +1,7 @@
 class QuestionUpvotesController < ApplicationController
     def create
-        qu = QuestionUpvote.create(question_upvote_params)
-        if qu.valid? then
+        qu = QuestionUpvote.new(question_upvote_params)
+        if qu.save then
             # I guess?
             render json: qu
         else

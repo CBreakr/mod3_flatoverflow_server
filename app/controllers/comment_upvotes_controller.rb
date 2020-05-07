@@ -1,7 +1,8 @@
 class CommentUpvotesController < ApplicationController
     def create
-        cu = CommentUpvote.create(comment_upvote_params)
-        if cu.is_valid? then
+        puts "COMMENT UPVOTED"
+        cu = CommentUpvote.new(comment_upvote_params)
+        if cu.save then
             # I guess?
             render json: cu
         else
