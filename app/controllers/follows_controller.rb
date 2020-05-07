@@ -5,7 +5,7 @@ class FollowsController < ApplicationController
   end
 
   def create
-    byebug
+    # byebug
     follow = Follow.create(follow_params)
     render json: follow
   end
