@@ -6,7 +6,7 @@ class FollowsController < ApplicationController
 
   def create
     # byebug
-    follow = Follow.create(follow_params)
+    follow = Follow.find_or_create_by(follower_id: follow_params[:follower_id], followee_id: follow_params[:followee_id])
     render json: follow
   end
 
