@@ -4,7 +4,9 @@ class User < ApplicationRecord
     has_many :question_upvotes
     has_many :comment_upvotes
 
-    def score
-        
-    end
+    has_many :active_follows, foreign_key: :follower_id, class_name: 'Follow'
+    has_many :followees, through: :active_follows
+
+    has_many :passive_follows, foreign_key: :followee_id, class_name: 'Follow'
+    has_many :followers, through: :passive_follows
 end

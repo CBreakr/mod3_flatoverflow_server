@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 2020_05_04_183246) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "follows", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "question_tags", force: :cascade do |t|
     t.integer "tag_id"
     t.integer "question_id"
@@ -54,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_183246) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
   end
-  
+
   create_table "tags", force: :cascade do |t|
     t.string "text"
     t.datetime "created_at", precision: 6, null: false

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :questions
   resources :users
+  resources :follows
  
   get "/questions/filter/:filter_type", to: "questions#filter", as: "filter"
   get "/questions/myfilter/:id", to: "questions#myfilter", as: "myfilter"
