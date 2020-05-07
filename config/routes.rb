@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :question_tags
+  get "/tags/trending", to: "tags#trending"
   resources :tags
   resources :comment_upvotes
   resources :question_upvotes
