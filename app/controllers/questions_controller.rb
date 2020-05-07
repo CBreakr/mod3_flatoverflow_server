@@ -7,6 +7,19 @@ class QuestionsController < ApplicationController
         renderJSON(questions)
     end
 
+    def upvotes
+        byebug
+        user_id = params[:user_id].to_i
+        user = User.find_by(id: user_id)
+        questions = user.questions
+
+        total_upvotes = questions.map do |q| 
+            q.question_upvotes.length
+        end.sum 
+
+        render json: total_upvotes
+    end
+
     def filter
         puts "FILTER"
         puts params

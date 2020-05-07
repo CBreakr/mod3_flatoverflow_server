@@ -8,6 +8,19 @@ class CommentsController < ApplicationController
         end
     end
 
+    def upvotes 
+        byebug
+        user_id = params[:user_id].to_i
+        user = User.find_by(id: user_id)
+        comments = user.comments
+
+        total_upvotes = comments.map do |c| 
+            c.comment_upvotes.length
+        end.sum 
+
+        render json: total_upvotes
+    end
+
     def mark_answer
         puts params
         comment = Comment.find(params[:id])
