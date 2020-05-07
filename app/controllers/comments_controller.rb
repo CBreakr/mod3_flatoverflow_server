@@ -20,6 +20,8 @@ class CommentsController < ApplicationController
 
                     if comment.question.save then
                         # what to do here
+                        # create the notification
+                        comment.create_notification(comment.question.user)
                     else
                         # hmm... this is a weird error to hit
                     end

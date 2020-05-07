@@ -19,6 +19,8 @@ class QuestionsController < ApplicationController
             get_unanswered_questions
         when "Popular"
             get_popular_questions
+        when "answered"
+            get_answered_questions
         else
             get_questions_by_tag(params[:filter_type])
         end
@@ -83,7 +85,8 @@ class QuestionsController < ApplicationController
     def get_questions_by_tag(tag)
 
         qt_list = QuestionTag.all.select { |qt|
-            qt.tag.text == "##{tag}"
+            puts qt.tag
+            qt.tag.text == tag
         }
 
         questions = qt_list.map { |qt| 
@@ -123,6 +126,10 @@ class QuestionsController < ApplicationController
         end
         # render json: questions
         renderJSON questions
+    end
+
+    def get_answered_questions
+        renderJSON Question.where(is_answered: true).order(created_at: :desc)
     end
 
     def get_my_questions(id)

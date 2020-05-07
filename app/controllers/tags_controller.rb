@@ -11,6 +11,7 @@ class TagsController < ApplicationController
 
     def trending
         tags = Tag.trending_tags
+        puts tags
         render json: tags
     end
 
