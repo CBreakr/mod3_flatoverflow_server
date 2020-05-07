@@ -9,16 +9,23 @@ class CommentsController < ApplicationController
     end
 
     def upvotes 
-        byebug
+        # byebug
         user_id = params[:user_id].to_i
         user = User.find_by(id: user_id)
+
         comments = user.comments
 
-        total_upvotes = comments.map do |c| 
+        verified_answers = comments.select do |c|
+            c.is_answer == true
+        end
+
+        total_comment_upvotes = comments.map do |c| 
             c.comment_upvotes.length
         end.sum 
 
-        render json: total_upvotes
+        total_points = total_comment_upvotes + verified_answers.length
+
+        render json: total_points
     end
 
     def mark_answer
