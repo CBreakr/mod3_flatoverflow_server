@@ -19,6 +19,8 @@ class QuestionsController < ApplicationController
             get_unanswered_questions
         when "Popular"
             get_popular_questions
+        else
+            get_questions_by_tag(params[:filter_type])
         end
     end
 
@@ -76,6 +78,21 @@ class QuestionsController < ApplicationController
     def renderJSON(value)
         render json: value, include: [:user, :question_upvotes, :tags, :reverse_comments => {:include => [:comment_upvotes, :user]}]
     end
+
+    #returns question tagged with a specific tag
+    def get_questions_by_tag(tag)
+
+        qt_list = QuestionTag.all.select { |qt|
+            qt.tag.text == "##{tag}"
+        }
+
+        questions = qt_list.map { |qt| 
+            qt.question
+        }
+
+        renderJSON(questions)
+    end
+
 
     def get_question
         @question = Question.find(params[:id])

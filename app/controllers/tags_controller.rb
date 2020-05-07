@@ -9,6 +9,11 @@ class TagsController < ApplicationController
         render json: tag
     end
 
+    def trending
+        tags = Tag.trending_tags
+        render json: tags
+    end
+
     private 
 
     def tag_params
