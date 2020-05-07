@@ -31,16 +31,17 @@ ActiveRecord::Schema.define(version: 2020_05_07_174817) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< HEAD
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followee_id"
-=======
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id"
     t.integer "question_id"
     t.boolean "is_answered"
->>>>>>> watches
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

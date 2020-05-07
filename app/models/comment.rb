@@ -11,17 +11,23 @@ class Comment < ApplicationRecord
         Watch.find_or_create_by(user: self.user, question: self.question)
     end
 
-    def create_notification(user_answer)
+    def create_notification
         # for every user except the current one
         # if the parameter is nil, use the one associated with this record
         user_to_exclude = self.user
         is_answered = false
 
-        if user_answer then
-            user_to_exclude = user_answer
-            is_answered = true
-        end
+        create_excluded_notification(user_to_exclude, is_answered)
+    end
 
+    def create_answer_notification(user_answer)
+        user_to_exclude = user_answer
+        is_answered = true
+
+        create_excluded_notification(user_to_exclude, is_answered)
+    end
+
+    def create_excluded_notification(user_to_exclude, is_answered)
         self.question.watches.each do |watch|
             if watch.user != user_to_exclude then
                 # only create unique ones
