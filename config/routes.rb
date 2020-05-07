@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :questions
   resources :users
   resources :follows
+
+  get "/follows/filter/:current_user", to: "follows#filter"
  
   get "/questions/filter/:filter_type", to: "questions#filter", as: "filter"
   get "/questions/myfilter/:id", to: "questions#myfilter", as: "myfilter"

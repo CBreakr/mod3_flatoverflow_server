@@ -10,6 +10,14 @@ class FollowsController < ApplicationController
     render json: follow, include: [:follower, :followee]
   end
 
+  def filter
+    # byebug
+    followees = Follow.all.select do |follow| 
+      follow.follower_id == (params[:current_user]).to_i
+    end
+    render json: followees, include: [:follower, :followee]
+  end
+
   private
 
   def follow_params
