@@ -2,7 +2,10 @@ class CommentsController < ApplicationController
     def create
         comment = Comment.new(comment_params)
         if comment.save then
-            renderJSON(comment)
+            question = Question.find(comment.question_id)
+            QuestionChannel.broadcast_to(question, {type: "new", id: comment.id, text: comment.text, user: comment.user, comment_upvotes: comment.comment_upvotes})
+            # QuestionChannel.broadcast_to(question, comment.to_json(include: [:user, :comment_upvotes]))
+            # renderJSON(comment)
         else
             # error
         end
@@ -48,7 +51,9 @@ class CommentsController < ApplicationController
                     end
                 end
                 # I guess
-                renderJSON(comment)
+                # renderJSON(comment)
+                question = Question.find(comment.question_id)
+                QuestionChannel.broadcast_to(question, {type: "answer", id: comment.id, text: comment.text, user: comment.user, comment_upvotes: comment.comment_upvotes})
             else
                 #error
             end
