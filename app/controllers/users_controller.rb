@@ -13,11 +13,7 @@ class UsersController < ApplicationController
   def create
     # byebug
     user = User.create(user_params)
-<<<<<<< HEAD
-    render json: user
-=======
     render json: user, methods: :score
->>>>>>> 441c95e6145125725ba133a6fe3809759b7e6e37
   end
 
   private 
