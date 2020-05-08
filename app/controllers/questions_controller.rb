@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     end
 
     def upvotes
-        byebug
+        # byebug
         user_id = params[:user_id].to_i
         user = User.find_by(id: user_id)
         questions = user.questions
