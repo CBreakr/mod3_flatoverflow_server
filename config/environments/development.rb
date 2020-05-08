@@ -52,7 +52,8 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = [
     # Local address we use for our standalone client
-    'file://',
-]
+    "https://flatoverflow.herokuapp.com",
+    'file://'
+  ]
 
 end
