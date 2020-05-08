@@ -13,6 +13,10 @@ class Question < ApplicationRecord
         self.comments.sort_by{|c| c.created_at}.reverse
     end
 
+    def ordered_comments
+        self.comments.sort_by{|c| c.created_at}
+    end
+
     def create_watch
         Watch.create(user: self.user, question: self)
     end

@@ -91,7 +91,7 @@ class QuestionsController < ApplicationController
     end
 
     def renderJSON(value)
-        render json: value, include: [:user, :question_upvotes, :tags, :comments => {:include => [:comment_upvotes, :user]}]
+        render json: value, include: [:user, :question_upvotes, :tags, :ordered_comments => {:include => [:comment_upvotes, :user]}]
     end
 
     #returns question tagged with a specific tag
