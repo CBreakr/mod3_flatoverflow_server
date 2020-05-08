@@ -20,6 +20,13 @@ class FollowsController < ApplicationController
     render json: followees, include: [:follower, :followee]
   end
 
+  def destroy
+    # byebug
+    follow = Follow.find(params[:id])
+    follow.destroy 
+    render json: follow
+  end
+
   private
 
   def follow_params
