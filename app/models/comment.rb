@@ -33,6 +33,7 @@ class Comment < ApplicationRecord
     end
 
     def create_excluded_notification(user_to_exclude, is_answered)
+        users = []
         self.question.watches.each do |watch|
             if watch.user != user_to_exclude then
                 puts "new notification"
@@ -41,8 +42,15 @@ class Comment < ApplicationRecord
                 puts "user: #{watch.user.name}"
                 puts "answered: #{is_answered}"
                 # only create unique ones
-                Notification.find_or_create_by(user: watch.user, question: watch.question, is_answered: is_answered)
+                notification = Notification.find_or_create_by(user: watch.user, question: watch.question, is_answered: is_answered)
+                users << watch.user.id
             end
+        end
+
+        if users.length > 0 then
+            puts "WE MADE A NOTIFICATION"
+            puts users
+            ActionCable.server.broadcast 'NotificationChannel', {users:users}
         end
     end
 end

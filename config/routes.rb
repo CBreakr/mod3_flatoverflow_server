@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :users
   resources :follows
 
+  mount ActionCable.server => '/cable'
+
   get "/follows/filter/:current_user", to: "follows#filter"
   get 'questions/upvotes/:user_id', to: 'questions#upvotes'
   get '/comments/upvotes/:user_id', to: 'comments#upvotes'

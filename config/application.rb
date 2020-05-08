@@ -37,7 +37,7 @@ module Mod3Flatoverflow
     # allow cors functionality via rack-cors gem
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-          origins '*'
+          origins 'https://flatoverflow.herokuapp.com'
           resource '*', headers: :any, methods: [:get, :post, :patch, :delete]
       end
     end
