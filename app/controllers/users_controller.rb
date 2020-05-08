@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def create
     # byebug
     user = User.create(user_params)
+    render json: user
   end
 
   private 
