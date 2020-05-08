@@ -26,6 +26,7 @@ q1 = Question.create!(title: "First Question", text:"Lorem Ipsum", user:u1)
 
 c1 = Comment.create!(question: q1, user: u2, text: "What?")
 c1 = Comment.create!(question: q1, user: u2, text: "How about this?")
+c1 = Comment.create!(question: q1, user: u3, text: "Another one")
 
 qu1 = QuestionUpvote.create!(question:q1, user:u3)
 qu2 = QuestionUpvote.create!(question:q1, user:u4)
@@ -71,3 +72,4 @@ c1 = Comment.create!(question: q4, user: u2, text: "Now?")
 c1 = Comment.create!(question: q5, user: u2, text: "Then?")
 c1 = Comment.create!(question: q10, user: u2, text: "That?")
 c1 = Comment.create!(question: q11, user: u2, text: "Here?")
+c1 = Comment.create!(question: q11, user: u3, text: "Another Eleven")

@@ -17,6 +17,11 @@ class Comment < ApplicationRecord
         user_to_exclude = self.user
         is_answered = false
 
+        puts ""
+        puts "create notification"
+        puts "question: #{self.question.title}"
+        puts "comment: #{self.text}"
+
         create_excluded_notification(user_to_exclude, is_answered)
     end
 
@@ -30,6 +35,11 @@ class Comment < ApplicationRecord
     def create_excluded_notification(user_to_exclude, is_answered)
         self.question.watches.each do |watch|
             if watch.user != user_to_exclude then
+                puts "new notification"
+                puts "question: #{self.question.title}"
+                puts "comment: #{self.text}"
+                puts "user: #{watch.user.name}"
+                puts "answered: #{is_answered}"
                 # only create unique ones
                 Notification.find_or_create_by(user: watch.user, question: watch.question, is_answered: is_answered)
             end
