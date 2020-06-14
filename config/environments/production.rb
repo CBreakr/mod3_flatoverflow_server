@@ -105,6 +105,7 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = [
     # Local address we use for our standalone client
-    "https://flatoverflow.herokuapp.com"
+    "https://flatoverflow.herokuapp.com",
+    "https://flatirontetris.herokuapp.com/"
   ]
 end
